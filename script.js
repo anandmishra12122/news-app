@@ -128,30 +128,22 @@ function searchFunction() {
 }
 searchFunction();
 
+
 const categories = document.querySelectorAll("#alllist li");
 
 categories.forEach((category) => {
     category.addEventListener("click", () => {
 
         let categoryName = category.innerText.toLowerCase();
-        let url = "";
 
-        if (categoryName === "world") {
-            url = `https://gnews.io/api/v4/top-headlines?category=world&lang=en&apikey=${apikey}`;
-        }
-        else if (categoryName === "india") {
-            url = `https://gnews.io/api/v4/top-headlines?country=in&lang=en&apikey=${apikey}`;
-        }
-        else {
-            url = `https://gnews.io/api/v4/top-headlines?category=${categoryName}&lang=en&apikey=${apikey}`;
-        }
+        const url = `https://gnews.io/api/v4/top-headlines?category=${categoryName}&lang=en&apikey=${apikey}`;
 
         console.log(url);
+
         getNews(url);
 
     });
 });
-
 
 
 
