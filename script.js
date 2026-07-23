@@ -14,7 +14,7 @@ async function getNews(url) {
     breakingNews(newsData);
     displayNews(newsData);
 }
-getNews(homeUlr);
+getNews(homeUrl);
 
 
 function breakingNews(data) {
