@@ -1,5 +1,5 @@
 let newsData = {};
-const apikey = "zYnI1NVO5Y27ZPn5stsk7S3nx8BLvN8CTprtvAmxhX9r2Mx6";
+const apikey = "MGIbEcmjoUMQpsuB7aCRhkEB31-MHt5fxuxzRpzZMlkVfCbl";
 
 const homeUrl = `https://api.currentsapi.services/v1/latest-news?language=en&apiKey=${apikey}`;
 
