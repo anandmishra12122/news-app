@@ -19,7 +19,9 @@ getNews(homeUrl);
 
 function breakingNews(data) {
     let ticker = document.querySelector(".ticker");
-    for (let i = 0; i < 2; i++) {
+    ticker.innerHTML = "";
+
+    for (let i = 0; i < Math.min(2, data.articles.length); i++) {
         let p = document.createElement("p");
         p.id = "breaking";
         p.textContent = data.articles[i].title;
@@ -33,12 +35,12 @@ function displayNews(data) {
     document.querySelectorAll(".news-card").forEach(card => card.remove());
     data.articles.forEach((d) => {
 
-        if (d.urlToImage) {
+        if (d.image) {
             let div = document.createElement("div");
             div.classList.add("news-card");
 
             let img = document.createElement("img");
-            img.src = d.urlToImage;
+            img.src = d.image;
             div.appendChild(img);
 
             let div2 = document.createElement("div");
