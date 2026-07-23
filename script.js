@@ -1,7 +1,7 @@
 let newsData = {};
-const apikey = "ecb39bb760f6483e9effd04735a9e5cf";
+const apikey = "9b6a0144d1000126aa55e33322b05d95";
 
-const homeUlr = `https://newsapi.org/v2/everything?q=latest&sortBy=publishedAt&pageSize=12&language=en&apiKey=${apikey}`;
+const homeUrl = `https://gnews.io/api/v4/top-headlines?category=world&lang=en&apikey=${apikey}`;
 
 
 async function getNews(url) {
@@ -119,7 +119,7 @@ function searchFunction() {
         let searchValue = searchinput.value.trim();
 
         if (searchValue) {
-            const searchUrl = `https://newsapi.org/v2/everything?q=${encodeURIComponent(searchValue)}&sortBy=publishedAt&apiKey=${apikey}`;
+            const searchUrl = `https://gnews.io/api/v4/search?q=${encodeURIComponent(searchValue)}&lang=en&apikey=${apikey}`;
             getNews(searchUrl);
             console.log(searchUrl);
             searchinput.value = "";
@@ -136,17 +136,17 @@ categories.forEach((category) => {
         let categoryName = category.innerText.toLowerCase();
         let url = "";
 
-        if (categoryName === "india") {
-            url = `https://newsapi.org/v2/top-headlines?country=in&apiKey=${apikey}`;
-            console.log(url);
+        if (categoryName === "world") {
+            url = `https://gnews.io/api/v4/top-headlines?category=world&lang=en&apikey=${apikey}`;
         }
-        else if (categoryName === "world") {
-            url = `https://newsapi.org/v2/everything?q=world&sortBy=publishedAt&apiKey=${apikey}`;
+        else if (categoryName === "india") {
+            url = `https://gnews.io/api/v4/top-headlines?country=in&lang=en&apikey=${apikey}`;
         }
         else {
-            url = `https://newsapi.org/v2/top-headlines?category=${categoryName}&apiKey=${apikey}`;
+            url = `https://gnews.io/api/v4/top-headlines?category=${categoryName}&lang=en&apikey=${apikey}`;
         }
 
+        console.log(url);
         getNews(url);
 
     });
