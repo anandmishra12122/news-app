@@ -1,18 +1,22 @@
 let newsData = {};
-const apikey = "9b6a0144d1000126aa55e33322b05d95";
+const apikey = "kLedij_mn82AZs3smT8NUmy2uZSdL5zymrexocIM-jVzLfBW";
 
-const homeUrl = `https://gnews.io/api/v4/top-headlines?category=world&lang=en&apikey=${apikey}`;
+const homeUrl = `https://api.currentsapi.services/v1/latest-news?language=en&apiKey=${apikey}`;
 
 
 async function getNews(url) {
     document.getElementById("loading").style.display = "flex";
     let response = await fetch(url);
     let data = await response.json();
-    newsData = data;
     document.getElementById("loading").style.display = "none"
-    console.log(data);
-    breakingNews(newsData);
-    displayNews(newsData);
+    if(data.news){
+        newsData = data;
+        breakingNews(newsData);
+        displayNews(newsData);
+    }
+    else{
+        console.log("No news found");
+    }
 }
 getNews(homeUrl);
 
@@ -21,10 +25,10 @@ function breakingNews(data) {
     let ticker = document.querySelector(".ticker");
     ticker.innerHTML = "";
 
-    for (let i = 0; i < Math.min(2, data.articles.length); i++) {
+    for (let i = 0; i < Math.min(2, data.news.length); i++) {
         let p = document.createElement("p");
         p.id = "breaking";
-        p.textContent = data.articles[i].title;
+        p.textContent = data.news[i].title;
         ticker.appendChild(p);
     }
 }
@@ -33,7 +37,7 @@ function displayNews(data) {
     let newsLength = 0;
     let cardContainer = document.querySelector(".cards-container");
     document.querySelectorAll(".news-card").forEach(card => card.remove());
-    data.articles.forEach((d) => {
+    data.news.forEach((d) => {
 
         if (d.image) {
             let div = document.createElement("div");
@@ -48,7 +52,7 @@ function displayNews(data) {
 
             let span = document.createElement("span");
             span.classList.add("news-date");
-            span.textContent = new Date(d.publishedAt).toLocaleString();
+            span.textContent = new Date(d.published).toLocaleString();
             div2.append(span)
 
             let h3 = document.createElement("h3");
@@ -120,7 +124,7 @@ function searchFunction() {
         let searchValue = searchinput.value.trim();
 
         if (searchValue) {
-            const searchUrl = `https://gnews.io/api/v4/search?q=${encodeURIComponent(searchValue)}&lang=en&apikey=${apikey}`;
+            const searchUrl = `https://api.currentsapi.services/v1/search?keywords=${encodeURIComponent(searchValue)}&apiKey=${apikey}`;
             getNews(searchUrl);
             searchinput.value = "";
         }
@@ -136,10 +140,10 @@ categories.forEach((category) => {
 
         let categoryName = category.innerText.toLowerCase();
 
-        const url = `https://gnews.io/api/v4/top-headlines?category=${categoryName}&lang=en&apikey=${apikey}`;
+        const categoryUrl = `https://api.currentsapi.services/v1/latest-news?category=${categoryName}&apiKey=${apikey}`;
 
 
-        getNews(url);
+        getNews(categoryUrl);
 
     });
 });
